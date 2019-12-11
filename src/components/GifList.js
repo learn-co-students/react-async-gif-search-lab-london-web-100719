@@ -1,16 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-class GifList extends Component {
-  formGifs = () => {
-    return this.props.gifUrls.map(url => (
+const GifList = props => {
+  const formGifs = () => {
+    return props.gifUrls.map(url => (
       <li>
         <img src={url} alt="" />
       </li>
     ));
   };
-  render() {
-    return <ul>{this.formGifs()}</ul>;
-  }
-}
+
+  return <ul>{formGifs()}</ul>;
+};
 
 export default GifList;

@@ -5,14 +5,9 @@ import GifSearch from "../components/GifSearch";
 class GifListContainer extends Component {
   state = {
     gifs: [],
-    searchTerm: ""
-  };
-
-  componentDidMount() {}
-
-  convertGifDataToURL = gifs => {
-    const urls = gifs.map(gif => gif.images.original.url);
-    this.setState({ gifs: urls });
+    searchTerm: "",
+    pageNo: 0,
+    position: window.pageYOffset
   };
 
   updateSearch = event => {
@@ -30,6 +25,12 @@ class GifListContainer extends Component {
         this.convertGifDataToURL(json.data);
       });
   };
+
+  convertGifDataToURL = gifs => {
+    const urls = gifs.map(gif => gif.images.original.url);
+    this.setState({ gifs: urls });
+  };
+
   render() {
     return (
       <React.Fragment>
