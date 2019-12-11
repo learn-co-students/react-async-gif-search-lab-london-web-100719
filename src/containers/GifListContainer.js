@@ -1,48 +1,42 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import GifList from "../components/GifList";
 import GifSearch from "../components/GifSearch";
 
-class GifListContainer extends Component {
-  state = {
-    gifs: [],
-    searchTerm: "",
-    pageNo: 0,
-    position: window.pageYOffset
-  };
+const GifListContainer = () => {
+  const [gifs, setGifs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  updateSearch = event => {
+  const updateSearch = event => {
     if (!event.target) return;
-    this.setState({ searchTerm: event.target.value });
+    setSearchTerm(event.target.value);
   };
 
-  handleSearchSubmit = event => {
+  const handleSearchSubmit = event => {
     event.preventDefault();
     fetch(
-      `https://api.giphy.com/v1/gifs/search?q=${this.state.searchTerm}&api_key=dc6zaTOxFJmzC&rating=g&limit=3`
+      `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=dc6zaTOxFJmzC&rating=g&limit=3`
     )
       .then(res => res.json())
       .then(json => {
-        this.convertGifDataToURL(json.data);
+        convertGifDataToURL(json.data);
       });
   };
 
-  convertGifDataToURL = gifs => {
+  const convertGifDataToURL = gifs => {
     const urls = gifs.map(gif => gif.images.original.url);
-    this.setState({ gifs: urls });
+    setGifs(urls);
   };
 
-  render() {
-    return (
-      <React.Fragment>
-        <GifSearch
-          searchTerm={this.state.searchTerm}
-          updateSearch={this.updateSearch}
-          searchSubmit={this.handleSearchSubmit}
-        />
-        <GifList gifUrls={this.state.gifs} />
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <GifSearch
+        searchTerm={searchTerm}
+        updateSearch={updateSearch}
+        searchSubmit={handleSearchSubmit}
+      />
+      <GifList gifUrls={gifs} />
+    </React.Fragment>
+  );
+};
 
 export default GifListContainer;

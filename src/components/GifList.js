@@ -4,7 +4,7 @@ const GifList = props => {
   const formGifs = () => {
     return props.gifUrls.map(url => (
       <li>
-        <img src={url} alt="" />
+        <img src={url} alt="" width="50%" />
       </li>
     ));
   };
@@ -12,4 +12,4 @@ const GifList = props => {
   return <ul>{formGifs()}</ul>;
 };
 
-export default GifList;
+export default React.memo(GifList);
