@@ -5,7 +5,7 @@ import GifSearch from "../components/GifSearch";
 export default class GifListContainer extends Component {
   state = {
     gifs: [],
-    searchInput: "crazy cat"
+    searchInput: "cute kittens"
   };
 
   getGifs = () => {
