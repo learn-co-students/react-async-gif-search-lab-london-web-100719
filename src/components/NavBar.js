@@ -13,6 +13,7 @@ function NavBar(props){
           <a className='navbar-brand'>
             { props.title }
           </a>
+    
         </div>
       </div>
     </nav>
